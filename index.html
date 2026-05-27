@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>How to Feel Happy When You Feel Crappy — Sophie Scott OAM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Overpass:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:    #070707;
+      --teal:     #6C8581;
+      --powder:   #D5DFE0;
+      --greige:   #DFDCD7;
+      --peach:    #F2D8BF;
+      --blush:    #EFE6DF;
+      --offwhite: #F7F7F5;
+      --white:    #FFFFFF;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: 'Overpass', sans-serif;
+      background: var(--offwhite);
+      color: var(--black);
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow-x: hidden;
+    }
+
+    /* ── SCREENS ─────────────────────────────────────────── */
+    .screen {
+      display: none;
+      min-height: 100vh;
+      min-height: 100dvh;
+      flex-direction: column;
+      transition: opacity 0.28s ease;
+    }
+    .screen.active { display: flex; }
+
+    /* ── HOME ────────────────────────────────────────────── */
+    #home { background: var(--offwhite); }
+
+    .home-header {
+      padding: 52px 32px 0;
+      text-align: center;
+    }
+
+    .sophie-name {
+      font-family: 'Overpass', sans-serif;
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 6px;
+    }
+
+    .sophie-name-rule {
+      width: 40px;
+      height: 1.5px;
+      background: var(--teal);
+      margin: 0 auto 20px;
+      opacity: 0.5;
+    }
+
+    .home-title {
+      font-family: 'Crimson Pro', serif;
+      font-weight: 400;
+      font-size: clamp(1.9rem, 6vw, 2.4rem);
+      line-height: 1.2;
+      color: var(--black);
+      margin-bottom: 14px;
+    }
+
+    .home-tagline {
+      font-family: 'Crimson Pro', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1.1rem;
+      color: var(--teal);
+      margin-bottom: 40px;
+    }
+
+    .cards-grid {
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1;
+    }
+
+    .tool-card {
+      border-radius: 16px;
+      padding: 22px 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      border: 1.5px solid transparent;
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+      box-shadow: 0 2px 10px rgba(7,7,7,0.05);
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    .tool-card:active { transform: scale(0.975); }
+    .tool-card:nth-child(1) { background: var(--blush); }
+    .tool-card:nth-child(2) { background: var(--powder); }
+    .tool-card:nth-child(3) { background: var(--greige); }
+
+    .tool-card-icon {
+      font-size: 1.7rem;
+      flex-shrink: 0;
+      width: 44px;
+      text-align: center;
+    }
+
+    .tool-card-text { flex: 1; }
+
+    .tool-card-title {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 3px;
+    }
+
+    .tool-card-desc {
+      font-family: 'Overpass', sans-serif;
+      font-weight: 300;
+      font-size: 0.82rem;
+      color: #666;
+      line-height: 1.4;
+    }
+
+    .tool-card-arrow {
+      color: var(--teal);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    .home-footer {
+      padding: 28px 32px max(32px, env(safe-area-inset-bottom, 32px));
+      text-align: center;
+      border-top: 1px solid var(--greige);
+      margin-top: 28px;
+    }
+
+    .footer-bio {
+      font-family: 'Overpass', sans-serif;
+      font-weight: 300;
+      font-size: 0.8rem;
+      color: #888;
+      line-height: 1.65;
+      margin-bottom: 12px;
+      max-width: 320px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .footer-link {
+      font-family: 'Overpass', sans-serif;
+      font-weight: 600;
+      font-size: 0.78rem;
+      color: var(--teal);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── INNER SCREENS ───────────────────────────────────── */
+    .inner-screen { background: var(--offwhite); }
+
+    .screen-nav {
+      display: flex;
+      align-items: center;
+      padding: max(20px, env(safe-area-inset-top, 20px)) 20px 0;
+      gap: 12px;
+      min-height: 60px;
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px 4px;
+      color: var(--teal);
+      font-family: 'Overpass', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      -webkit-tap-highlight-color: transparent;
+      flex-shrink: 0;
+    }
+
+    .screen-label {
+      font-family: 'Overpass', sans-serif;
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #bbb;
+    }
+
+    .screen-content {
+      flex: 1;
+      padding: 28px 24px max(32px, env(safe-area-inset-bottom, 32px));
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    /* ── BUTTONS ─────────────────────────────────────────── */
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .btn-primary {
+      flex: 1;
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-family: 'Overpass', sans-serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: opacity 0.15s;
+    }
+    .btn-primary:active { opacity: 0.8; }
+    .btn-primary:disabled { opacity: 0.4; cursor: default; }
+
+    .btn-secondary {
+      flex: 1;
+      background: transparent;
+      color: var(--black);
+      border: 1.5px solid #ccc;
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-family: 'Overpass', sans-serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.15s;
+    }
+    .btn-secondary:active { background: var(--greige); }
+
+    .btn-teal {
+      flex: 1;
+      background: var(--teal);
+      color: var(--white);
+      border: none;
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-family: 'Overpass', sans-serif;
+      font-weight: 600;
+      font-size: 0.88rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: opacity 0.15s;
+    }
+    .btn-teal:active { opacity: 0.85; }
+    .btn-teal:disabled { opacity: 0.4; cursor: default; }
+
+    .btn-ghost {
+      flex: 1;
+      background: transparent;
+      color: #999;
+      border: 1.5px solid var(--greige);
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-family: 'Overpass', sans-serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* ── SCIENCE NOTE ────────────────────────────────────── */
+    .science-note {
+      background: var(--peach);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-top: auto;
+      padding-top: 16px;
+    }
+
+    .science-note-label {
+      font-family: 'Overpass', sans-serif;
+      font-weight: 700;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 7px;
+    }
+
+    .science-note-text {
+      font-family: 'Crimson Pro', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: #5a4a3a;
+      line-height: 1.6;
+    }
+
+    /* ── AFFIRMATIONS ────────────────────────────────────── */
+    .affirmation-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 24px 8px 32px;
+      min-height: 180px;
+    }
+
+    .affirmation-text {
+      font-family: 'Crimson Pro', serif;
+      font-weight: 400;
+      font-size: clamp(1.45rem, 5vw, 1.75rem);
+      line-height: 1.5;
+      text-align: center;
+      color: var(--black);
+      transition: opacity 0.25s ease;
+    }
+
+    .affirmation-counter {
+      font-family: 'Overpass', sans-serif;
+      font-weight: 300;
+      font-size: 0.75rem;
+      color: #bbb;
+      margin-top: 20px;
+      letter-spacing: 0.06em;
+    }
+
+    .write-own-container { margin-bottom: 16px; }
+
+    .write-own-textarea {
+      width: 100%;
+      background: var(--white);
+      border: 1.5px solid var(--powder);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.25rem;
+      color: var(--black);
+      resize: none;
+      outline: none;
+      line-height: 1.45;
+      min-height: 88px;
+      margin-bottom: 12px;
+      transition: border-color 0.2s;
+    }
+    .write-own-textarea:focus { border-color: var(--teal); }
+
+    /* ── ENVIRONMENT ─────────────────────────────────────── */
+    .env-toggle {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .env-btn {
+      flex: 1;
+      padding: 16px 10px;
+      border-radius: 12px;
+      border: 2px solid var(--greige);
+      background: var(--white);
+      cursor: pointer;
+      font-family: 'Overpass', sans-serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      color: #999;
+      text-align: center;
+      transition: all 0.2s;
+      -webkit-tap-highlight-color: transparent;
+      line-height: 1.4;
+    }
+
+    .env-btn-icon {
+      display: block;
+      font-size: 1.4rem;
+      margin-bottom: 5px;
+    }
+
+    .env-btn.active {
+      border-color: var(--teal);
+      background: var(--powder);
+      color: var(--black);
+    }
+
+    .env-panel { display: none; }
+    .env-panel.active { display: block; }
+
+    .env-suggestion {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.1rem;
+      line-height: 1.65;
+      color: var(--black);
+      margin-bottom: 20px;
+    }
+
+    .env-suggestion.small {
+      font-size: 0.92rem;
+      color: #777;
+      margin-top: -8px;
+    }
+
+    .maps-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--teal);
+      color: var(--white);
+      text-decoration: none;
+      padding: 14px 22px;
+      border-radius: 10px;
+      font-family: 'Overpass', sans-serif;
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .sound-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .sound-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      border: 1.5px solid var(--greige);
+      transition: border-color 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .sound-card:active { border-color: var(--teal); }
+
+    .sound-icon { font-size: 1.4rem; flex-shrink: 0; }
+
+    .sound-text { flex: 1; }
+
+    .sound-name {
+      font-family: 'Overpass', sans-serif;
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--black);
+      margin-bottom: 2px;
+    }
+
+    .sound-source {
+      font-family: 'Overpass', sans-serif;
+      font-weight: 300;
+      font-size: 0.75rem;
+      color: var(--teal);
+    }
+
+    .sound-arrow { color: var(--teal); font-size: 0.9rem; }
+
+    /* ── MOVEMENT ────────────────────────────────────────── */
+    .duration-selector {
+      display: flex;
+      background: var(--greige);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 24px;
+      gap: 4px;
+    }
+
+    .duration-btn {
+      flex: 1;
+      padding: 11px 6px;
+      border: none;
+      border-radius: 9px;
+      background: transparent;
+      cursor: pointer;
+      font-family: 'Overpass', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #999;
+      transition: all 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .duration-btn.active {
+      background: var(--white);
+      color: var(--black);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+
+    .movement-prompt {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.1rem;
+      line-height: 1.65;
+      color: var(--black);
+      margin-bottom: 28px;
+      min-height: 72px;
+    }
+
+    .timer-display {
+      text-align: center;
+      margin-bottom: 24px;
+      padding: 28px 0;
+      background: var(--white);
+      border-radius: 16px;
+      border: 1.5px solid var(--greige);
+    }
+
+    .timer-digits {
+      font-family: 'Crimson Pro', serif;
+      font-size: clamp(3.5rem, 16vw, 5rem);
+      font-weight: 300;
+      color: var(--black);
+      line-height: 1;
+      letter-spacing: 0.04em;
+      transition: color 0.4s ease;
+    }
+
+    .timer-digits.done { color: var(--teal); }
+
+    .timer-label {
+      font-family: 'Overpass', sans-serif;
+      font-weight: 300;
+      font-size: 0.75rem;
+      color: #bbb;
+      margin-top: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.4s ease;
+    }
+
+    .timer-label.done { color: var(--teal); }
+
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       HOME
+  ═══════════════════════════════════════════ -->
+  <div id="home" class="screen active">
+    <div class="home-header">
+      <div class="sophie-name">Sophie Scott OAM</div>
+      <div class="sophie-name-rule"></div>
+      <h1 class="home-title">How to Feel Happy<br>When You Feel Crappy</h1>
+      <p class="home-tagline">Pick what you need right now.</p>
+    </div>
+
+    <div class="cards-grid">
+      <div class="tool-card" onclick="showScreen('affirmations')">
+        <div class="tool-card-icon">🌸</div>
+        <div class="tool-card-text">
+          <div class="tool-card-title">Affirmations</div>
+          <div class="tool-card-desc">A single sentence that changes everything</div>
+        </div>
+        <div class="tool-card-arrow">→</div>
+      </div>
+      <div class="tool-card" onclick="showScreen('environment')">
+        <div class="tool-card-icon">🌊</div>
+        <div class="tool-card-text">
+          <div class="tool-card-title">Change Your Environment</div>
+          <div class="tool-card-desc">Where you are affects how you feel</div>
+        </div>
+        <div class="tool-card-arrow">→</div>
+      </div>
+      <div class="tool-card" onclick="showScreen('movement')">
+        <div class="tool-card-icon">🚶</div>
+        <div class="tool-card-text">
+          <div class="tool-card-title">Mindful Movement</div>
+          <div class="tool-card-desc">You don't have to do much. Just do something.</div>
+        </div>
+        <div class="tool-card-arrow">→</div>
+      </div>
+    </div>
+
+    <div class="home-footer">
+      <p class="footer-bio">Sophie Scott OAM is an award-winning health communicator, author, and broadcaster helping people make better decisions about their health and wellbeing.</p>
+      <a href="https://www.instagram.com/sophiescottau" class="footer-link" target="_blank" rel="noopener">@sophiescottau</a>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       AFFIRMATIONS
+  ═══════════════════════════════════════════ -->
+  <div id="affirmations" class="screen inner-screen">
+    <div class="screen-nav">
+      <button class="back-btn" onclick="goBack()">← Back</button>
+      <span class="screen-label">Affirmations</span>
+    </div>
+    <div class="screen-content">
+
+      <div class="affirmation-main">
+        <div class="affirmation-text" id="affirmation-text">These sensations are only temporary. I am safe.</div>
+        <div class="affirmation-counter" id="affirmation-counter">1 of 14</div>
+      </div>
+
+      <div id="write-own-container" class="write-own-container" style="display:none;">
+        <textarea class="write-own-textarea" id="write-own-input" placeholder="Write your own affirmation here…" rows="3"></textarea>
+        <div class="btn-row">
+          <button class="btn-primary" onclick="useOwnAffirmation()">Use This</button>
+          <button class="btn-secondary" onclick="cancelWriteOwn()">Cancel</button>
+        </div>
+      </div>
+
+      <div id="affirmation-actions" class="btn-row">
+        <button class="btn-primary" onclick="nextAffirmation()">Next</button>
+        <button class="btn-secondary" onclick="showWriteOwn()">Write Your Own</button>
+      </div>
+
+      <div class="science-note">
+        <div class="science-note-label">The science</div>
+        <div class="science-note-text">Self-affirmation reduces cortisol and regulates the stress response. The language you use changes how your nervous system responds. (Cascio et al., 2016)</div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       ENVIRONMENT
+  ═══════════════════════════════════════════ -->
+  <div id="environment" class="screen inner-screen">
+    <div class="screen-nav">
+      <button class="back-btn" onclick="goBack()">← Back</button>
+      <span class="screen-label">Change Your Environment</span>
+    </div>
+    <div class="screen-content">
+
+      <div class="env-toggle">
+        <button class="env-btn active" id="env-outside-btn" onclick="setEnv('outside')">
+          <span class="env-btn-icon">☀️</span>
+          I can get outside
+        </button>
+        <button class="env-btn" id="env-inside-btn" onclick="setEnv('inside')">
+          <span class="env-btn-icon">🏠</span>
+          I'm staying in
+        </button>
+      </div>
+
+      <div id="env-outside" class="env-panel active">
+        <p class="env-suggestion">Head to the nearest beach, lake, river, or park near water. Even sitting beside a fountain or a pond counts. Bring nothing but yourself if you can. Let your eyes rest somewhere open.</p>
+        <a class="maps-btn" href="https://www.google.com/maps/search/beach+near+me/" target="_blank" rel="noopener">Find Blue Space Near Me →</a>
+        <p class="env-suggestion small">Can't get to water? A park bench, a garden, or even a window with natural light all help. The shift in space is what matters, not the destination.</p>
+      </div>
+
+      <div id="env-inside" class="env-panel">
+        <p class="env-suggestion">Close your eyes and bring the outside in. These free ambient sounds help your nervous system settle without leaving the room.</p>
+        <div class="sound-list">
+          <a class="sound-card" href="https://insighttimer.com/search?q=ocean+waves" target="_blank" rel="noopener">
+            <span class="sound-icon">🌊</span>
+            <div class="sound-text">
+              <div class="sound-name">Ocean Waves</div>
+              <div class="sound-source">Insight Timer — free</div>
+            </div>
+            <span class="sound-arrow">→</span>
+          </a>
+          <a class="sound-card" href="https://insighttimer.com/search?q=gentle+rain" target="_blank" rel="noopener">
+            <span class="sound-icon">🌧️</span>
+            <div class="sound-text">
+              <div class="sound-name">Gentle Rain</div>
+              <div class="sound-source">Insight Timer — free</div>
+            </div>
+            <span class="sound-arrow">→</span>
+          </a>
+          <a class="sound-card" href="https://insighttimer.com/search?q=river+stream+sounds" target="_blank" rel="noopener">
+            <span class="sound-icon">🏞️</span>
+            <div class="sound-text">
+              <div class="sound-name">River &amp; Stream</div>
+              <div class="sound-source">Insight Timer — free</div>
+            </div>
+            <span class="sound-arrow">→</span>
+          </a>
+          <a class="sound-card" href="https://insighttimer.com/search?q=forest+birds+nature" target="_blank" rel="noopener">
+            <span class="sound-icon">🌿</span>
+            <div class="sound-text">
+              <div class="sound-name">Forest &amp; Birds</div>
+              <div class="sound-source">Insight Timer — free</div>
+            </div>
+            <span class="sound-arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="science-note">
+        <div class="science-note-label">The science</div>
+        <div class="science-note-text">Being near water has a measurable effect on wellbeing. Blue spaces, beaches, lakes, rivers, create space to recover and recharge. Even ambient water sounds can shift your state. (White et al., 2020)</div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       MOVEMENT
+  ═══════════════════════════════════════════ -->
+  <div id="movement" class="screen inner-screen">
+    <div class="screen-nav">
+      <button class="back-btn" onclick="movementBack()">← Back</button>
+      <span class="screen-label">Mindful Movement</span>
+    </div>
+    <div class="screen-content">
+
+      <div class="duration-selector">
+        <button class="duration-btn active" id="dur-5"  onclick="setDuration(5)">5 min</button>
+        <button class="duration-btn"        id="dur-10" onclick="setDuration(10)">10 min</button>
+        <button class="duration-btn"        id="dur-20" onclick="setDuration(20)">20 min</button>
+      </div>
+
+      <div class="movement-prompt" id="movement-prompt">Stretch slowly. Reach your arms, roll your shoulders, let your neck drop side to side. No rush. Just move gently.</div>
+
+      <div class="timer-display">
+        <div class="timer-digits" id="timer-digits">5:00</div>
+        <div class="timer-label"  id="timer-label">Ready when you are</div>
+      </div>
+
+      <div class="btn-row" id="timer-btn-row">
+        <button class="btn-teal"  id="timer-action-btn" onclick="timerAction()">Begin</button>
+        <button class="btn-ghost" id="timer-reset-btn"  onclick="resetTimer()" style="display:none;">Reset</button>
+      </div>
+
+      <div class="science-note">
+        <div class="science-note-label">The science</div>
+        <div class="science-note-text">Walking activates the brain's default mode network, where your best ideas arrive and your mood quietly lifts. Movement is not a reward for feeling well. It is one of the tools that helps you get there.</div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <script>
+    // ── DATA ──────────────────────────────────────────────
+    const AFFIRMATIONS = [
+      "These sensations are only temporary. I am safe.",
+      "My body is working hard for me right now. I can trust that.",
+      "This feeling will pass. It always does.",
+      "I don't have to feel well to be well cared for.",
+      "Right now, I am doing enough.",
+      "These sensations are information, not danger.",
+      "I can be kind to myself today, the same way I would be kind to someone I love.",
+      "I don't need to push through. I need to be present.",
+      "My worth is not measured by how much I get done today.",
+      "Rest is not giving up. Rest is part of recovery.",
+      "I have come through hard days before. I will come through this one too.",
+      "Even small steps count. Even breathing slowly counts.",
+      "This moment is hard. The next moment does not have to be.",
+      "I am allowed to ask for help."
+    ];
+
+    const MOVEMENT_PROMPTS = {
+      5:  "Stretch slowly. Reach your arms, roll your shoulders, let your neck drop side to side. No rush. Just move gently.",
+      10: "A gentle walk. Step outside if you can. Let your eyes move, your pace be slow. You don't need a destination.",
+      20: "Walk and let your mind wander. No phone, no agenda. This is where clarity comes from. The goal is not fitness. The goal is mood."
+    };
+
+    // ── NAVIGATION ────────────────────────────────────────
+    let currentScreen = 'home';
+
+    function showScreen(id) {
+      const prev = document.getElementById(currentScreen);
+      const next = document.getElementById(id);
+      prev.style.display = 'none';
+      next.style.display = 'flex';
+      next.style.opacity = '0';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        next.style.opacity = '1';
+      }));
+      currentScreen = id;
+      window.scrollTo(0, 0);
+    }
+
+    function goBack() {
+      showScreen('home');
+    }
+
+    // ── AFFIRMATIONS ──────────────────────────────────────
+    let affirmIndex = 0;
+    let customAffirmation = null;
+
+    function renderAffirmation() {
+      const el = document.getElementById('affirmation-text');
+      const counter = document.getElementById('affirmation-counter');
+      el.style.opacity = '0';
+      setTimeout(() => {
+        if (customAffirmation) {
+          el.textContent = customAffirmation;
+          counter.textContent = 'Your affirmation';
+        } else {
+          el.textContent = AFFIRMATIONS[affirmIndex];
+          counter.textContent = `${affirmIndex + 1} of ${AFFIRMATIONS.length}`;
+        }
+        el.style.opacity = '1';
+      }, 220);
+    }
+
+    function nextAffirmation() {
+      customAffirmation = null;
+      affirmIndex = (affirmIndex + 1) % AFFIRMATIONS.length;
+      renderAffirmation();
+    }
+
+    function showWriteOwn() {
+      document.getElementById('affirmation-actions').style.display = 'none';
+      document.getElementById('write-own-container').style.display = 'block';
+      document.getElementById('write-own-input').value = customAffirmation || '';
+      setTimeout(() => document.getElementById('write-own-input').focus(), 80);
+    }
+
+    function cancelWriteOwn() {
+      document.getElementById('write-own-container').style.display = 'none';
+      document.getElementById('affirmation-actions').style.display = 'flex';
+    }
+
+    function useOwnAffirmation() {
+      const val = document.getElementById('write-own-input').value.trim();
+      if (!val) return;
+      customAffirmation = val;
+      document.getElementById('write-own-container').style.display = 'none';
+      document.getElementById('affirmation-actions').style.display = 'flex';
+      renderAffirmation();
+    }
+
+    // ── ENVIRONMENT ───────────────────────────────────────
+    function setEnv(mode) {
+      document.getElementById('env-outside-btn').classList.toggle('active', mode === 'outside');
+      document.getElementById('env-inside-btn').classList.toggle('active', mode === 'inside');
+      document.getElementById('env-outside').classList.toggle('active', mode === 'outside');
+      document.getElementById('env-inside').classList.toggle('active', mode === 'inside');
+    }
+
+    // ── MOVEMENT TIMER ────────────────────────────────────
+    let selectedDuration = 5;
+    let timerSeconds    = 300;
+    let timerInterval   = null;
+    let timerState      = 'idle'; // idle | running | paused | done
+
+    function setDuration(mins) {
+      if (timerState === 'running' || timerState === 'paused') return;
+      selectedDuration = mins;
+      timerSeconds = mins * 60;
+      document.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('dur-' + mins).classList.add('active');
+      document.getElementById('movement-prompt').textContent = MOVEMENT_PROMPTS[mins];
+      updateTimerDisplay();
+      setTimerState('idle');
+    }
+
+    function setTimerState(state) {
+      timerState = state;
+      const actionBtn = document.getElementById('timer-action-btn');
+      const resetBtn  = document.getElementById('timer-reset-btn');
+      const label     = document.getElementById('timer-label');
+      const digits    = document.getElementById('timer-digits');
+
+      if (state === 'idle') {
+        actionBtn.textContent = 'Begin';
+        actionBtn.disabled = false;
+        resetBtn.style.display = 'none';
+        label.textContent = 'Ready when you are';
+        label.classList.remove('done');
+        digits.classList.remove('done');
+      } else if (state === 'running') {
+        actionBtn.textContent = 'Pause';
+        actionBtn.disabled = false;
+        resetBtn.style.display = 'flex';
+        label.textContent = 'In progress';
+        label.classList.remove('done');
+        digits.classList.remove('done');
+      } else if (state === 'paused') {
+        actionBtn.textContent = 'Resume';
+        actionBtn.disabled = false;
+        resetBtn.style.display = 'flex';
+        label.textContent = 'Paused';
+      } else if (state === 'done') {
+        actionBtn.textContent = 'Done';
+        actionBtn.disabled = true;
+        resetBtn.style.display = 'flex';
+        label.textContent = 'Well done.';
+        label.classList.add('done');
+        digits.classList.add('done');
+      }
+    }
+
+    function updateTimerDisplay() {
+      const m = Math.floor(timerSeconds / 60);
+      const s = timerSeconds % 60;
+      document.getElementById('timer-digits').textContent = `${m}:${s.toString().padStart(2,'0')}`;
+    }
+
+    function timerAction() {
+      if (timerState === 'idle' || timerState === 'paused') {
+        startTimer();
+      } else if (timerState === 'running') {
+        pauseTimer();
+      }
+    }
+
+    function startTimer() {
+      setTimerState('running');
+      timerInterval = setInterval(() => {
+        if (timerSeconds <= 0) {
+          clearInterval(timerInterval);
+          setTimerState('done');
+          playChime();
+          return;
+        }
+        timerSeconds--;
+        updateTimerDisplay();
+      }, 1000);
+    }
+
+    function pauseTimer() {
+      clearInterval(timerInterval);
+      setTimerState('paused');
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      timerSeconds = selectedDuration * 60;
+      updateTimerDisplay();
+      setTimerState('idle');
+    }
+
+    function movementBack() {
+      if (timerState === 'running' || timerState === 'paused') {
+        if (!confirm('Stop the timer and go back?')) return;
+        clearInterval(timerInterval);
+        resetTimer();
+      }
+      goBack();
+    }
+
+    function playChime() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        [[528, 0], [660, 0.35], [792, 0.7]].forEach(([freq, delay]) => {
+          const osc  = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.frequency.value = freq;
+          osc.type = 'sine';
+          gain.gain.setValueAtTime(0, ctx.currentTime + delay);
+          gain.gain.linearRampToValueAtTime(0.12, ctx.currentTime + delay + 0.06);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + 1.8);
+          osc.start(ctx.currentTime + delay);
+          osc.stop(ctx.currentTime + delay + 1.8);
+        });
+      } catch (_) { /* AudioContext not available */ }
+    }
+
+    // init
+    updateTimerDisplay();
+  </script>
+</body>
+</html>
