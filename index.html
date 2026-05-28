@@ -46,7 +46,7 @@
     #home { background: var(--offwhite); }
 
     .home-header {
-      padding: 52px 32px 0;
+      padding: 16px 32px 0;
       text-align: center;
     }
 
@@ -597,6 +597,74 @@
 
     .timer-label.done { color: var(--teal); }
 
+    /* ── SOPHIE PHOTO ────────────────────────────────────── */
+    .sophie-photo-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 40px 0 0;
+    }
+
+    .sophie-photo {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 15%;
+      box-shadow: 0 4px 24px rgba(7,7,7,0.13);
+      border: 3px solid var(--white);
+    }
+
+    /* ── ENVIRONMENT SLIDESHOW ───────────────────────────── */
+    #environment { position: relative; overflow: hidden; }
+
+    .env-slideshow {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .env-slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 2.5s ease;
+    }
+
+    .env-slide.active { opacity: 1; }
+
+    .env-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(247, 247, 245, 0.87);
+      z-index: 1;
+    }
+
+    #environment .screen-nav,
+    #environment .screen-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ── SOUND PLAY BUTTON ───────────────────────────────── */
+    .sound-card { cursor: pointer; }
+
+    .sound-card.playing {
+      border-color: var(--teal);
+      background: var(--powder);
+    }
+
+    .sound-play {
+      color: var(--teal);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      width: 28px;
+      text-align: center;
+      line-height: 1;
+      transition: transform 0.15s;
+    }
+
   </style>
 </head>
 <body>
@@ -605,6 +673,9 @@
        HOME
   ═══════════════════════════════════════════ -->
   <div id="home" class="screen active">
+    <div class="sophie-photo-wrap">
+      <img src="assets/images/env/sophie.png" alt="Sophie Scott OAM" class="sophie-photo">
+    </div>
     <div class="home-header">
       <div class="sophie-name">Sophie Scott OAM</div>
       <div class="sophie-name-rule"></div>
@@ -714,6 +785,19 @@
        ENVIRONMENT
   ═══════════════════════════════════════════ -->
   <div id="environment" class="screen inner-screen">
+    <div class="env-slideshow" id="env-slideshow">
+      <div class="env-slide active" style="background-image:url('assets/images/env/env1.jpg')"></div>
+      <div class="env-slide" style="background-image:url('assets/images/env/env2.jpg')"></div>
+      <div class="env-slide" style="background-image:url('assets/images/env/env3.jpg')"></div>
+      <div class="env-slide" style="background-image:url('assets/images/env/env4.jpg')"></div>
+      <div class="env-slide" style="background-image:url('assets/images/env/env5.jpg')"></div>
+      <div class="env-slide" style="background-image:url('assets/images/env/env6.jpg')"></div>
+      <div class="env-slide" style="background-image:url('assets/images/env/env7.jpg')"></div>
+      <div class="env-slide" style="background-image:url('assets/images/env/env8.jpeg')"></div>
+      <div class="env-slide" style="background-image:url('assets/images/env/env9.jpeg')"></div>
+      <div class="env-slide" style="background-image:url('assets/images/env/env10.jpeg')"></div>
+    </div>
+    <div class="env-overlay"></div>
     <div class="screen-nav">
       <button class="back-btn" onclick="goBack()">← Back</button>
       <span class="screen-label">Change Your Environment</span>
@@ -740,34 +824,34 @@
       <div id="env-inside" class="env-panel">
         <p class="env-suggestion">Close your eyes and bring the outside in. These free ambient sounds help your nervous system settle without leaving the room.</p>
         <div class="sound-list">
-          <a class="sound-card" href="https://insighttimer.com/search?q=ocean+waves" target="_blank" rel="noopener">
+          <div class="sound-card" onclick="toggleSound('ocean', this)">
             <span class="sound-icon">🌊</span>
             <div class="sound-text">
               <div class="sound-name">Ocean Waves</div>
             </div>
-            <span class="sound-arrow">→</span>
-          </a>
-          <a class="sound-card" href="https://insighttimer.com/search?q=gentle+rain" target="_blank" rel="noopener">
+            <span class="sound-play">▶</span>
+          </div>
+          <div class="sound-card" onclick="toggleSound('rain', this)">
             <span class="sound-icon">🌧️</span>
             <div class="sound-text">
               <div class="sound-name">Gentle Rain</div>
             </div>
-            <span class="sound-arrow">→</span>
-          </a>
-          <a class="sound-card" href="https://insighttimer.com/search?q=river+stream+sounds" target="_blank" rel="noopener">
+            <span class="sound-play">▶</span>
+          </div>
+          <div class="sound-card" onclick="toggleSound('river', this)">
             <span class="sound-icon">🏞️</span>
             <div class="sound-text">
               <div class="sound-name">River &amp; Stream</div>
             </div>
-            <span class="sound-arrow">→</span>
-          </a>
-          <a class="sound-card" href="https://insighttimer.com/search?q=forest+birds+nature" target="_blank" rel="noopener">
+            <span class="sound-play">▶</span>
+          </div>
+          <div class="sound-card" onclick="toggleSound('birds', this)">
             <span class="sound-icon">🌿</span>
             <div class="sound-text">
               <div class="sound-name">Forest &amp; Birds</div>
             </div>
-            <span class="sound-arrow">→</span>
-          </a>
+            <span class="sound-play">▶</span>
+          </div>
         </div>
       </div>
 
@@ -854,11 +938,14 @@
       requestAnimationFrame(() => requestAnimationFrame(() => {
         next.style.opacity = '1';
       }));
+      if (currentScreen === 'environment') stopSlideshow();
+      if (id === 'environment') startSlideshow();
       currentScreen = id;
       window.scrollTo(0, 0);
     }
 
     function goBack() {
+      stopAllAudio();
       showScreen('home');
     }
 
@@ -909,12 +996,86 @@
       renderAffirmation();
     }
 
-    // ── ENVIRONMENT ───────────────────────────────────────
+    // ── ENVIRONMENT SLIDESHOW ─────────────────────────────
+    const ENV_SLIDES = document.querySelectorAll('.env-slide');
+    let slideIndex = 0;
+    let slideInterval = null;
+
+    function startSlideshow() {
+      if (slideInterval) return;
+      slideInterval = setInterval(() => {
+        ENV_SLIDES[slideIndex].classList.remove('active');
+        slideIndex = (slideIndex + 1) % ENV_SLIDES.length;
+        ENV_SLIDES[slideIndex].classList.add('active');
+      }, 5000);
+    }
+
+    function stopSlideshow() {
+      clearInterval(slideInterval);
+      slideInterval = null;
+    }
+
     function setEnv(mode) {
       document.getElementById('env-outside-btn').classList.toggle('active', mode === 'outside');
       document.getElementById('env-inside-btn').classList.toggle('active', mode === 'inside');
       document.getElementById('env-outside').classList.toggle('active', mode === 'outside');
       document.getElementById('env-inside').classList.toggle('active', mode === 'inside');
+    }
+
+    // ── AUDIO ─────────────────────────────────────────────
+    const SOUND_SRCS = {
+      ocean: 'assets/audio/ocean-waves.mp3',
+      rain:  'assets/audio/forest-rain.mp3',
+      river: 'assets/audio/river-stream.mp3',
+      birds: 'assets/audio/morning-birds.mp3'
+    };
+
+    let activeAudio = null;
+    let activeCard  = null;
+
+    function toggleSound(id, cardEl) {
+      const playBtn = cardEl.querySelector('.sound-play');
+
+      // Same card tapped — stop
+      if (activeCard === cardEl) {
+        activeAudio.pause();
+        activeAudio.currentTime = 0;
+        cardEl.classList.remove('playing');
+        playBtn.textContent = '▶';
+        activeAudio = null;
+        activeCard  = null;
+        return;
+      }
+
+      // Different card — stop previous
+      if (activeAudio) {
+        activeAudio.pause();
+        activeAudio.currentTime = 0;
+        activeCard.classList.remove('playing');
+        activeCard.querySelector('.sound-play').textContent = '▶';
+      }
+
+      // Start new
+      const audio = new Audio(SOUND_SRCS[id]);
+      audio.loop = true;
+      audio.play().catch(() => {});
+      activeAudio = audio;
+      activeCard  = cardEl;
+      cardEl.classList.add('playing');
+      playBtn.textContent = '⏸';
+    }
+
+    function stopAllAudio() {
+      if (activeAudio) {
+        activeAudio.pause();
+        activeAudio.currentTime = 0;
+        if (activeCard) {
+          activeCard.classList.remove('playing');
+          activeCard.querySelector('.sound-play').textContent = '▶';
+        }
+        activeAudio = null;
+        activeCard  = null;
+      }
     }
 
     // ── MOVEMENT TIMER ────────────────────────────────────
@@ -1016,7 +1177,8 @@
         clearInterval(timerInterval);
         resetTimer();
       }
-      goBack();
+      stopAllAudio();
+      showScreen('home');
     }
 
     function playChime() {
