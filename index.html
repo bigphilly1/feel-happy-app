@@ -647,6 +647,67 @@
       z-index: 2;
     }
 
+    /* ── HOW IT WORKS LINK ───────────────────────────────── */
+    .how-it-works-link {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Overpass', sans-serif;
+      font-weight: 400;
+      font-size: 0.78rem;
+      color: #aaa;
+      letter-spacing: 0.06em;
+      padding: 4px 0 0;
+      margin-top: 2px;
+      -webkit-tap-highlight-color: transparent;
+      transition: color 0.2s;
+    }
+    .how-it-works-link:hover { color: var(--teal); }
+
+    /* ── SCIENCE EXPLAINER ───────────────────────────────── */
+    .science-section {
+      margin-bottom: 32px;
+    }
+
+    .science-section-heading {
+      font-family: 'Crimson Pro', serif;
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: var(--black);
+      margin-bottom: 10px;
+    }
+
+    .science-section-body {
+      font-family: 'Crimson Pro', serif;
+      font-weight: 300;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #333;
+    }
+
+    .science-section-body p { margin-bottom: 10px; }
+    .science-section-body p:last-child { margin-bottom: 0; }
+
+    .science-citation {
+      font-family: 'Overpass', sans-serif;
+      font-weight: 300;
+      font-size: 0.72rem;
+      color: var(--teal);
+      margin-top: 8px;
+      letter-spacing: 0.04em;
+    }
+
+    .science-intro {
+      font-family: 'Crimson Pro', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: #555;
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--greige);
+    }
+
     /* ── SOUND PLAY BUTTON ───────────────────────────────── */
     .sound-card { cursor: pointer; }
 
@@ -681,6 +742,7 @@
       <div class="sophie-name-rule"></div>
       <h1 class="home-title">How to Feel Happy<br>When You Feel Crappy</h1>
       <p class="home-tagline">Pick what you need right now.</p>
+      <button class="how-it-works-link" onclick="showScreen('science')">How this works →</button>
     </div>
 
     <div class="cards-grid">
@@ -895,6 +957,62 @@
       <div class="science-note">
         <div class="science-note-label">The science</div>
         <div class="science-note-text">Walking activates the brain's default mode network, where your best ideas arrive and your mood quietly lifts. Movement is not a reward for feeling well. It is one of the tools that helps you get there.</div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       SCIENCE EXPLAINER
+  ═══════════════════════════════════════════ -->
+  <div id="science" class="screen inner-screen">
+    <div class="screen-nav">
+      <button class="back-btn" onclick="goBack()">← Back</button>
+      <span class="screen-label">How This Works</span>
+    </div>
+    <div class="screen-content">
+
+      <p class="science-intro">These three tools are not self-help habits or motivational tricks. Each one works through a specific, well-documented mechanism in the brain. Here is what the research says.</p>
+
+      <div class="science-section">
+        <div class="science-section-heading">Why mood affects thinking</div>
+        <div class="science-section-body">
+          <p>When you are stressed, your brain releases cortisol. In the short term, cortisol is useful. In sustained amounts, it suppresses activity in the prefrontal cortex, the region responsible for planning, judgment, and clear decision-making. A stressed brain is not a strategic brain. It is a reactive one.</p>
+          <p>These tools do not ask you to think your way out of feeling unwell. They work by shifting the brain's physiological state first. Better thinking follows.</p>
+        </div>
+      </div>
+
+      <div class="science-section">
+        <div class="science-section-heading">Tool 1: Affirmations</div>
+        <div class="science-section-body">
+          <p>Self-affirmation activates the brain's reward and valuation systems, reducing cortisol and quieting the threat response. When the nervous system feels less under threat, the prefrontal cortex comes back online. Judgment, creativity, and problem-solving return.</p>
+          <p>The word choice matters. "Sensations" instead of "symptoms" is deliberate. Symptoms signal danger. Sensations are neutral. The language you use shapes what your nervous system does next.</p>
+        </div>
+        <div class="science-citation">Cascio et al. (2016). Self-affirmation activates brain systems associated with self-related processing and reward. Social Cognitive and Affective Neuroscience.</div>
+      </div>
+
+      <div class="science-section">
+        <div class="science-section-heading">Tool 2: Change Your Environment</div>
+        <div class="science-section-body">
+          <p>Attention Restoration Theory (Kaplan, 1989) describes how directed attention, the kind you use for focused work, depletes with sustained use. Natural environments, particularly blue spaces such as water, lakes, and coastlines, restore that capacity involuntarily. Your attention refills without effort.</p>
+          <p>You do not need to travel far. Even ambient natural sounds produce a measurable shift in the nervous system. The brain responds to cues from the environment, not just the environment itself.</p>
+        </div>
+        <div class="science-citation">White et al. (2020). Spending at least 120 minutes a week in nature is associated with good health and wellbeing. Scientific Reports. — Kaplan, S. (1989). The experience of nature: A psychological perspective.</div>
+      </div>
+
+      <div class="science-section">
+        <div class="science-section-heading">Tool 3: Mindful Movement</div>
+        <div class="science-section-body">
+          <p>Physical movement, even gentle walking, activates the default mode network, the brain network most active when you are not focused on a task. This is where insight happens. It is why your clearest ideas arrive on a walk, in the shower, or staring out a window.</p>
+          <p>Movement also triggers the release of BDNF, a protein that supports the growth and repair of brain cells, and serotonin, which stabilises mood. The goal here is not fitness. The goal is restoring the brain state that allows you to think well.</p>
+        </div>
+        <div class="science-citation">Raichle et al. (2001). A default mode of brain function. PNAS. — Cotman & Berchtold (2002). Exercise: a behavioral intervention to enhance brain health and plasticity. Trends in Neurosciences.</div>
+      </div>
+
+      <div class="science-note">
+        <div class="science-note-label">The bottom line</div>
+        <div class="science-note-text">You cannot always control how you feel. You can almost always control what you do next. These tools work because they change your brain state first. Better decisions, clearer thinking, and steadier days follow from there.</div>
       </div>
 
     </div>
