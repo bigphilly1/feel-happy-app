@@ -83,7 +83,28 @@
       font-weight: 300;
       font-size: 1.1rem;
       color: var(--teal);
-      margin-bottom: 40px;
+      margin-bottom: 24px;
+    }
+
+    /* Prominent connect row near the top of the home screen */
+    .home-connect {
+      display: flex;
+      justify-content: center;
+      gap: 26px;
+      margin: 0 auto 34px;
+    }
+    .home-connect .footer-icon-circle {
+      width: 52px;
+      height: 52px;
+      border-width: 2px;
+    }
+    .home-connect .footer-icon-circle svg {
+      width: 21px;
+      height: 21px;
+    }
+    .home-connect .footer-icon-label {
+      color: var(--teal);
+      font-size: 0.64rem;
     }
 
     .cards-grid {
@@ -742,6 +763,37 @@
       <div class="sophie-name-rule"></div>
       <h1 class="home-title">How to Feel Happier</h1>
       <p class="home-tagline">Pick what you need right now.</p>
+
+      <div class="home-connect footer-icons">
+        <a href="https://sophiescott2.substack.com" class="footer-icon-link" target="_blank" rel="noopener" aria-label="Substack">
+          <div class="footer-icon-circle">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/>
+            </svg>
+          </div>
+          <span class="footer-icon-label">Substack</span>
+        </a>
+        <a href="mailto:sophie@sophiescott.com.au" class="footer-icon-link" aria-label="Email Sophie">
+          <div class="footer-icon-circle">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="m2 7 10 7 10-7"/>
+            </svg>
+          </div>
+          <span class="footer-icon-label">Email</span>
+        </a>
+        <a href="https://sophiescott.com/about" class="footer-icon-link" target="_blank" rel="noopener" aria-label="About Sophie">
+          <div class="footer-icon-circle">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="16" x2="12" y2="12"/>
+              <line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+          </div>
+          <span class="footer-icon-label">About Sophie</span>
+        </a>
+      </div>
+
       <button class="how-it-works-link" onclick="showScreen('science')">How this works →</button>
     </div>
 
@@ -774,34 +826,6 @@
 
     <div class="home-footer">
       <p class="footer-bio">Sophie Scott OAM is an award-winning health communicator, author, and broadcaster helping people make better decisions about their health and wellbeing.</p>
-      <div class="footer-icons">
-        <a href="https://sophiescott2.substack.com" class="footer-icon-link" target="_blank" rel="noopener" aria-label="Substack">
-          <div class="footer-icon-circle">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/>
-            </svg>
-          </div>
-          <span class="footer-icon-label">Substack</span>
-        </a>
-        <a href="https://www.sophiescott.com.au" class="footer-icon-link" target="_blank" rel="noopener" aria-label="Website">
-          <div class="footer-icon-circle">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-            </svg>
-          </div>
-          <span class="footer-icon-label">Website</span>
-        </a>
-        <a href="mailto:sophie@sophiescott.com.au" class="footer-icon-link" aria-label="Email Sophie">
-          <div class="footer-icon-circle">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="2" y="4" width="20" height="16" rx="2"/>
-              <path d="m2 7 10 7 10-7"/>
-            </svg>
-          </div>
-          <span class="footer-icon-label">Email</span>
-        </a>
-      </div>
     </div>
   </div>
 
