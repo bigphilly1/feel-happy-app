@@ -762,7 +762,7 @@
       <div class="sophie-name">Sophie Scott OAM</div>
       <div class="sophie-name-rule"></div>
       <h1 class="home-title">How to Feel Happier</h1>
-      <p class="home-tagline">Pick what you need right now.</p>
+      <p class="home-tagline">Whatever today feels like, pick what you need right now.</p>
 
       <div class="home-connect footer-icons">
         <a href="https://sophiescott2.substack.com" class="footer-icon-link" target="_blank" rel="noopener" aria-label="Substack">
@@ -1059,7 +1059,13 @@
       "I have come through hard days before. I will come through this one too.",
       "Even small steps count. Even breathing slowly counts.",
       "This moment is hard. The next moment does not have to be.",
-      "I am allowed to ask for help."
+      "I am allowed to ask for help.",
+      "Other people have stood exactly where I am standing. I am not the only one.",
+      "The people who love me would rather have me here, as I am, than not at all.",
+      "I do not need to know how this ends to get through today.",
+      "I am still myself, even on the days my body feels like a stranger.",
+      "Good moments are still coming. They have not stopped because today is hard.",
+      "I cannot control everything my body does. I can control how gently I treat it."
     ];
 
     const MOVEMENT_PROMPTS = {
@@ -1082,6 +1088,10 @@
       }));
       if (currentScreen === 'environment') stopSlideshow();
       if (id === 'environment') startSlideshow();
+      if (id === 'affirmations' && !customAffirmation) {
+        affirmIndex = dailyIndex();
+        renderAffirmation();
+      }
       currentScreen = id;
       window.scrollTo(0, 0);
     }
@@ -1094,6 +1104,12 @@
     // ── AFFIRMATIONS ──────────────────────────────────────
     let affirmIndex = 0;
     let customAffirmation = null;
+    const CUSTOM_KEY = 'feelhappy_custom_affirmation';
+
+    // A different affirmation each day, stable within the day. No login, no server.
+    function dailyIndex() {
+      return Math.floor(Date.now() / 86400000) % AFFIRMATIONS.length;
+    }
 
     function renderAffirmation() {
       const el = document.getElementById('affirmation-text');
@@ -1112,8 +1128,13 @@
     }
 
     function nextAffirmation() {
-      customAffirmation = null;
-      affirmIndex = (affirmIndex + 1) % AFFIRMATIONS.length;
+      if (customAffirmation) {
+        customAffirmation = null;
+        try { localStorage.removeItem(CUSTOM_KEY); } catch (_) {}
+        affirmIndex = dailyIndex();
+      } else {
+        affirmIndex = (affirmIndex + 1) % AFFIRMATIONS.length;
+      }
       renderAffirmation();
     }
 
@@ -1133,6 +1154,7 @@
       const val = document.getElementById('write-own-input').value.trim();
       if (!val) return;
       customAffirmation = val;
+      try { localStorage.setItem(CUSTOM_KEY, val); } catch (_) {}
       document.getElementById('write-own-container').style.display = 'none';
       document.getElementById('affirmation-actions').style.display = 'flex';
       renderAffirmation();
@@ -1344,6 +1366,14 @@
 
     // init
     updateTimerDisplay();
+
+    // Restore the user's own affirmation across visits; otherwise seed today's.
+    try {
+      const saved = localStorage.getItem(CUSTOM_KEY);
+      if (saved) customAffirmation = saved;
+    } catch (_) {}
+    affirmIndex = dailyIndex();
+    renderAffirmation();
   </script>
 </body>
 </html>
