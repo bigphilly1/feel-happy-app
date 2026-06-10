@@ -356,6 +356,50 @@
       -webkit-tap-highlight-color: transparent;
     }
 
+    /* ── SHARE ───────────────────────────────────────────── */
+    .share-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: -4px auto 22px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--teal);
+      font-family: 'Overpass', sans-serif;
+      font-weight: 600;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      padding: 6px 10px;
+      -webkit-tap-highlight-color: transparent;
+      transition: opacity 0.15s;
+    }
+    .share-btn:active { opacity: 0.6; }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: max(28px, env(safe-area-inset-bottom, 28px));
+      transform: translateX(-50%) translateY(12px);
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Overpass', sans-serif;
+      font-weight: 600;
+      font-size: 0.8rem;
+      padding: 12px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 18px rgba(7,7,7,0.22);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      z-index: 50;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
     /* ── SCIENCE NOTE ────────────────────────────────────── */
     .science-note {
       background: var(--peach);
@@ -858,6 +902,14 @@
         <button class="btn-secondary" onclick="showWriteOwn()">Write Your Own</button>
       </div>
 
+      <button class="share-btn" id="share-btn" onclick="shareAffirmation()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+        </svg>
+        Share this with someone
+      </button>
+
       <div class="science-note">
         <div class="science-note-label">The science</div>
         <div class="science-note-text">Self-affirmation reduces cortisol and regulates the stress response. The language you use changes how your nervous system responds. (Cascio et al., 2016)</div>
@@ -1043,6 +1095,8 @@
   </div>
 
 
+  <div class="toast" id="toast"></div>
+
   <script>
     // ── DATA ──────────────────────────────────────────────
     const AFFIRMATIONS = [
@@ -1158,6 +1212,38 @@
       document.getElementById('write-own-container').style.display = 'none';
       document.getElementById('affirmation-actions').style.display = 'flex';
       renderAffirmation();
+    }
+
+    // ── SHARE ─────────────────────────────────────────────
+    let toastTimer = null;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    function currentAffirmationText() {
+      return customAffirmation || AFFIRMATIONS[affirmIndex];
+    }
+
+    async function shareAffirmation() {
+      const line = currentAffirmationText();
+      const url  = 'https://feel-happy-app.vercel.app';
+      const text = `"${line}"\n\nFrom How to Feel Happier, by Sophie Scott OAM\n${url}`;
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: 'How to Feel Happier', text });
+        } catch (_) { /* user cancelled */ }
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast('Copied. Paste it to someone who needs it.');
+      } catch (_) {
+        showToast('Could not share on this device.');
+      }
     }
 
     // ── ENVIRONMENT SLIDESHOW ─────────────────────────────
